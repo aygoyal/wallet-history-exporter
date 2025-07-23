@@ -123,7 +123,8 @@ public class EtherscanTransactionClient implements TransactionClient {
                     }
                 }
             } catch (IOException | InterruptedException e) {
-                throw new RuntimeException("Error in fetching transactions for block " + startBlock);
+                System.out.println("Error in fetching transactions for address [" + address + "] due to error: [" + e.getMessage() + "]");
+                throw new RuntimeException("Error in fetching transactions for address [" + address + "]", e);
             }
         }
 
