@@ -32,21 +32,19 @@ public class TransactionExporter {
             try {
                 writer.abort();
                 System.out.println("Partial output cleaned up.");
-            } catch (Exception cleanupEx) {
-                System.err.println("Could not clean up partial output: " + cleanupEx.getMessage());
+            } catch (Exception ex) {
+                System.err.println("Could not clean up partial output: " + ex.getMessage());
             }
         } finally {
             try {
                 writer.close();
-            } catch (Exception closeEx) {
-                System.err.println("Failed to close writer: " + closeEx.getMessage());
+            } catch (Exception ex) {
+                System.err.println("Failed to close writer: " + ex.getMessage());
             }
         }
     }
 
     private void writePage(TransactionWriter writer, List<Transaction> txPage) {
-        for (Transaction tx : txPage) {
-            writer.writeTransaction(tx);
-        }
+        for (Transaction tx : txPage) writer.writeTransaction(tx);
     }
 }
