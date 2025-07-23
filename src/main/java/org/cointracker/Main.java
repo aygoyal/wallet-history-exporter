@@ -13,7 +13,7 @@ import java.net.http.HttpClient;
 public class Main {
     public static void main(String[] args) {
         if (args.length < 2) {
-            System.err.println("Usage: java -jar wallet-history-exporter.jar <ETH_ADDRESS> <ETHERSCAN_API_KEY>");
+            System.err.println("Usage: java -jar target/wallet-history-exporter-1.0-SNAPSHOT.jar <ETH_ADDRESS> <ETHERSCAN_API_KEY>");
             System.exit(1);
         }
 
