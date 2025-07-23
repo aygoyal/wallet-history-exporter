@@ -1,4 +1,4 @@
-Cointracker - Wallet History Exporter
+**Cointracker - Wallet History Exporter**
 
 This project fetches and exports the complete transaction history of an Ethereum wallet to a structured CSV file.
 
@@ -7,7 +7,7 @@ Different kinds of transactions that it fetches:
 2. Internal Transfers - These are transfers that occur within smart contracts & not directly initiated by users.  
 3. Token Transfers - ERC-20, ERC-721
 
-Output:
+**Output:**
 
 - The CSV includes the following fields for ETH transfers, ERC-20 tokens, ERC-721 NFTs, and ERC-1155 assets:
     - **Transaction Hash** – Unique identifier for the transaction
@@ -30,13 +30,16 @@ Output:
 - Etherscan API Key
 
 **Clone & build**
+
 git clone aygoyal/wallet-history-exporter
 cd wallet-history-exporter
 mvn clean package
 
 **Run**
 
-java -jar target/wallet-history-exporter-1.0-SNAPSHOT-shaded.jar <ETH_ADDRESS> <ETHERSCAN_API_KEY>
+java -jar target/wallet-history-exporter-1.0-SNAPSHOT.jar <ETH_ADDRESS> <ETHERSCAN_API_KEY>
+
+Sample command:  java -jar target/wallet-history-exporter-1.0-SNAPSHOT.jar 0xa39b189482f984388a34460636fea9eb181ad1a6 9T3QZIRPT5YRQD9ENIN2W9GZURM4FSN3SM
 
 To run directly from IDE:
 
@@ -44,6 +47,7 @@ Run Main.java
 Provide two program arguments: <ETH_ADDRESS> <API_KEY>
 
 **Assumptions:**
+
 1. The tool assumes that paginating by startBlock is acceptable, even though it can result in redundant scans if the blockchain changes during execution. A cursor‑based approach would be more efficient but is not supported by Etherscan.
 2. The amount field is computed differently based on transaction type:
       ETH: value in wei → ETH
@@ -54,6 +58,7 @@ Provide two program arguments: <ETH_ADDRESS> <API_KEY>
 4. NFT transactions (ERC‑1155) are treated similarly to ERC‑721 for simplicity.
 
 **Architecture Decisions:**
+
 1. Instead of loading all transactions into memory, the TransactionClient streams paginated results to a Consumer<List<Transaction>> — enabling large wallets to be processed page‑by‑page and written to CSV incrementally.
 2. The CSV file is written incrementally, and if any failure occurs midway, the partial file is deleted to prevent corrupt output.
 3. For keeping the code extensible, TransactionClient and TransactionWriter interfaces are added so that we can support other transaction APIs like Alchemy , Blockscout, Infura etc and also write the output on other types of output destinations.
