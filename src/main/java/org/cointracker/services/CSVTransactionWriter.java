@@ -54,7 +54,7 @@ public class CSVTransactionWriter implements TransactionWriter, AutoCloseable {
                     transaction.getGasFee()
             );
         } catch (Exception ex) {
-            System.out.println("Failed to write transaction: " + transaction);
+            System.out.println("Failed to write transaction: " + transaction + " with error: [" + ex.getMessage() + "]");
         }
     }
 
